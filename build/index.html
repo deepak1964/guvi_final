@@ -1,153 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Simple Microservice Project</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Microservices Dashboard</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      margin: 0; padding: 0;
+      color: #333;
     }
     header {
-      background-color: #007BFF;
+      background: #0077cc;
       color: white;
-      padding: 15px;
+      padding: 20px;
       text-align: center;
-      border-radius: 8px;
-      margin-bottom: 20px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
     nav {
       text-align: center;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
     nav button {
-      background-color: #007BFF;
+      background: #0099ff;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 20px;
       margin: 5px;
+      font-size: 16px;
+      border-radius: 8px;
       cursor: pointer;
-      border-radius: 5px;
       transition: background 0.3s;
     }
     nav button:hover {
-      background-color: #0056b3;
+      background: #005fa3;
     }
     .section {
       display: none;
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
+      background: white;
+      max-width: 1000px;
       margin: auto;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      animation: fadeIn 0.5s ease-in-out;
     }
     .visible {
       display: block;
     }
     form input, form textarea {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       margin: 8px 0;
-      border-radius: 4px;
       border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
     }
     form button {
       background-color: #28a745;
       color: white;
-      border: none;
       padding: 10px 15px;
-      border-radius: 5px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
+      margin-top: 10px;
     }
     form button:hover {
-      background-color: #218838;
+      background-color: #1e7e34;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    ul li {
+      margin-bottom: 8px;
+    }
+    .alert {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      border: 1px solid #badbcc;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      display: none;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .card {
+      flex: 1 1 250px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    .analytics-bar {
+      height: 20px;
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .analytics-bar span {
+      display: block;
+      height: 100%;
+      background-color: #0077cc;
+    }
+    @media screen and (max-width: 600px) {
+      nav button {
+        display: block;
+        width: 90%;
+        margin: 10px auto;
+      }
+      .section {
+        padding: 15px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Microservice Demo (Frontend Only)</h1>
-  </header>
+<header>
+  <h1>Microservices Frontend Dashboard</h1>
+  <p>Frontend simulation of a distributed microservices system</p>
+</header>
 
-  <nav>
-    <button onclick="showSection('dashboard')">🏠 Dashboard</button>
-    <button onclick="showSection('auth')">🔐 Auth Service</button>
-    <button onclick="showSection('product')">📦 Product Service</button>
-    <button onclick="showSection('order')">🧾 Order Service</button>
-    <button onclick="showSection('contact')">📬 Contact Service</button>
-  </nav>
+<nav>
+  <button onclick="showSection('dashboard')">🏠 Dashboard</button>
+  <button onclick="showSection('analytics')">📊 Analytics</button>
+  <button onclick="showSection('auth')">🔐 Auth</button>
+  <button onclick="showSection('product')">📦 Products</button>
+  <button onclick="showSection('order')">🧾 Orders</button>
+  <button onclick="showSection('team')">👥 Team</button>
+  <button onclick="showSection('maintenance')">🛠 Maintenance</button>
+  <button onclick="showSection('contact')">📬 Contact</button>
+</nav>
 
-  <!-- Dashboard -->
-  <div id="dashboard" class="section visible">
-    <h2>Welcome to the Dashboard</h2>
-    <p>This is a static HTML mockup of a microservice-based architecture. Use the buttons above to explore each service.</p>
+<!-- Dashboard -->
+<div id="dashboard" class="section visible">
+  <h2>Dashboard</h2>
+  <div class="card-grid">
+    <div class="card" style="background:#e3f2fd;">
+      <h3>🔐 Auth Service</h3>
+      <p>Status: <strong style="color:green;">Online</strong></p>
+      <p>Active Users Today: <strong>128</strong></p>
+    </div>
+    <div class="card" style="background:#fce4ec;">
+      <h3>📦 Product Service</h3>
+      <p>Status: <strong style="color:green;">Online</strong></p>
+      <p>Products Available: <strong>37</strong></p>
+    </div>
+    <div class="card" style="background:#e8f5e9;">
+      <h3>🧾 Order Service</h3>
+      <p>Status: <strong style="color:green;">Online</strong></p>
+      <p>Orders Today: <strong>57</strong></p>
+    </div>
+    <div class="card" style="background:#fff3e0;">
+      <h3>📬 Contact Service</h3>
+      <p>Status: <strong style="color:green;">Online</strong></p>
+      <p>Messages Today: <strong>12</strong></p>
+    </div>
   </div>
+</div>
 
-  <!-- Auth Service -->
-  <div id="auth" class="section">
-    <h2>Authentication Service</h2>
+<!-- Analytics -->
+<div id="analytics" class="section">
+  <h2>📊 System Analytics</h2>
+  <p>System usage today:</p>
+  <p>Auth Users: 128</p>
+  <div class="analytics-bar"><span style="width: 60%;"></span></div>
+  <p>Orders: 57</p>
+  <div class="analytics-bar"><span style="width: 45%; background:#28a745;"></span></div>
+  <p>Messages: 12</p>
+  <div class="analytics-bar"><span style="width: 15%; background:#ffc107;"></span></div>
+</div>
 
-    <h3>Login</h3>
-    <form>
-      <input type="text" placeholder="Username" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
+<!-- Auth Section -->
+<div id="auth" class="section">
+  <h2>Authentication Service</h2>
+  <form onsubmit="event.preventDefault(); alertUser('Logged in!');">
+    <input type="text" placeholder="Username" required>
+    <input type="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+</div>
 
-    <h3>Register</h3>
-    <form>
-      <input type="text" placeholder="Full Name" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Register</button>
-    </form>
-  </div>
+<!-- Product Section -->
+<div id="product" class="section">
+  <h2>Product Service</h2>
+  <ul>
+    <li>📦 Product A – <strong>₹1299</strong></li>
+    <li>📦 Product B – <strong>₹899</strong></li>
+    <li>📦 Product C – <strong>₹549</strong></li>
+  </ul>
+</div>
 
-  <!-- Product Service -->
-  <div id="product" class="section">
-    <h2>Product Service</h2>
-    <ul>
-      <li>📦 Product 1 - $10</li>
-      <li>📦 Product 2 - $15</li>
-      <li>📦 Product 3 - $8</li>
-    </ul>
-  </div>
+<!-- Order Section -->
+<div id="order" class="section">
+  <h2>Order Service</h2>
+  <ul>
+    <li>🧾 Order #001 – <em>Pending</em> – <strong>₹799</strong></li>
+    <li>🧾 Order #002 – <em>Shipped</em> – <strong>₹1299</strong></li>
+    <li>🧾 Order #003 – <em>Delivered</em> – <strong>₹549</strong></li>
+  </ul>
+</div>
 
-  <!-- Order Service -->
-  <div id="order" class="section">
-    <h2>Order Management Service</h2>
-    <ul>
-      <li>🧾 Order #101 - Pending</li>
-      <li>🧾 Order #102 - Delivered</li>
-      <li>🧾 Order #103 - Shipped</li>
-    </ul>
-  </div>
+<!-- Team Section -->
+<div id="team" class="section">
+  <h2>👥 Our Team</h2>
+  <ul>
+    <li>👨‍💻 Rahul Sharma – Backend Engineer</li>
+    <li>👩‍💻 Neha Patel – Frontend Developer</li>
+    <li>🧑‍🔧 Vinay Gupta – DevOps Specialist</li>
+  </ul>
+</div>
 
-  <!-- Contact Service -->
-  <div id="contact" class="section">
-    <h2>Contact Support</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="4" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </div>
+<!-- Maintenance Section -->
+<div id="maintenance" class="section">
+  <h2>🛠 Upcoming Maintenance</h2>
+  <ul>
+    <li>🔧 25th May – Auth service update (12:00 AM – 1:00 AM)</li>
+    <li>🔧 27th May – Product DB optimization</li>
+  </ul>
+</div>
 
-  <script>
-    function showSection(id) {
-      const sections = document.querySelectorAll('.section');
-      sections.forEach(section => section.classList.remove('visible'));
-      document.getElementById(id).classList.add('visible');
-    }
-  </script>
+<!-- Contact Section -->
+<div id="contact" class="section">
+  <h2>Contact Support</h2>
+  <form onsubmit="event.preventDefault(); alertUser('Message sent!');">
+    <input type="text" placeholder="Name" required />
+    <input type="email" placeholder="Email" required />
+    <textarea placeholder="Your message..." rows="4" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<div id="alertBox" class="alert"></div>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+    document.getElementById(id).classList.add('visible');
+  }
+  function alertUser(msg) {
+    const alertBox = document.getElementById("alertBox");
+    alertBox.textContent = msg;
+    alertBox.style.display = "block";
+    setTimeout(() => alertBox.style.display = "none", 3000);
+  }
+</script>
 
 </body>
 </html>
